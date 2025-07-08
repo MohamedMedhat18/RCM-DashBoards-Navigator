@@ -27,15 +27,16 @@
       background: #fff;
       border-bottom: 2px solid #e0e7ef;
       box-shadow: 0 2px 16px 0 rgba(21,101,192,0.04);
-      min-height: 120px;
+      min-height: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px 0;
+      padding: 12px 0;
     }
     .logo-bar img {
-      height: 100px;
+      height: 64px;
       object-fit: contain;
+      max-width: 85vw;
     }
     .header {
       background: linear-gradient(90deg, #1565C0, #90CAF9 100%);
@@ -47,28 +48,28 @@
     }
     .header h1 {
       color: #fff;
-      font-size: 2.7rem;
+      font-size: 2.1rem;
       font-weight: bold;
-      letter-spacing: 4px;
+      letter-spacing: 2px;
       margin: 0;
-      padding: 22px 0 10px 0;
+      padding: 18px 0 10px 0;
     }
     .blue-line {
       background: #1565C0;
-      height: 5px;
+      height: 4px;
       border-radius: 2px;
       width: 80vw;
-      margin: 0 auto 0.7em auto;
+      margin: 0 auto 0.5em auto;
     }
     .main-content {
       max-width: 1450px;
-      margin: 40px auto;
-      padding: 0 20px;
+      margin: 28px auto;
+      padding: 0 10px;
     }
     .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(415px, 1fr));
-      gap: 3rem;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 2rem;
     }
     .cat-card {
       background: var(--card-gradient);
@@ -76,39 +77,39 @@
       box-shadow: var(--shadow);
       border: none;
       transition: box-shadow 0.21s, transform 0.21s;
-      padding: 38px 32px 32px 32px;
+      padding: 28px 16px 18px 16px;
       display: flex;
       flex-direction: column;
-      gap: 1.6em;
-      min-height: 320px;
-      min-width: 340px;
+      gap: 1.1em;
+      min-height: 220px;
+      min-width: 0;
       max-width: 520px;
       position: relative;
       cursor: default;
     }
     .cat-card:hover {
       box-shadow: var(--shadow-hover);
-      transform: translateY(-6px) scale(1.03);
+      transform: translateY(-3px) scale(1.01);
       z-index: 2;
     }
     .cat-header {
       display: flex;
       align-items: center;
-      gap: 1.4em;
-      min-height: 56px;
+      gap: 1em;
+      min-height: 44px;
     }
     .cat-icon-btn {
       background: transparent;
       border: none;
-      border-radius: 18px;
+      border-radius: 16px;
       padding: 0;
       cursor: pointer;
       transition: box-shadow 0.15s, background 0.12s;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-width: 54px;
-      min-height: 54px;
+      min-width: 40px;
+      min-height: 40px;
     }
     .cat-icon-btn:focus,
     .cat-icon-btn:hover {
@@ -117,88 +118,88 @@
       outline: none;
     }
     .cat-icon-emoji {
-      font-size: 2.4rem;
+      font-size: 2rem;
       line-height: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
+      width: 36px;
+      height: 36px;
       border: 2px solid #1976D2;
-      border-radius: 11px;
+      border-radius: 8px;
       background: #fff;
       text-align: center;
       margin: 2px;
     }
     .cat-title {
-      font-size: 1.48em;
+      font-size: 1.22em;
       font-weight: 700;
       color: var(--main-blue);
       background: #fafdff;
-      border-radius: 14px;
-      padding: 10px 30px;
+      border-radius: 10px;
+      padding: 8px 18px;
       border: none;
       flex: 1 1 auto;
       word-break: break-word;
       user-select: text;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       min-width: 0;
     }
     .cat-badge {
-      width: 44px;
-      height: 44px;
+      width: 32px;
+      height: 32px;
       background: var(--main-blue);
       color: #fff;
-      border-radius: 22px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.18em;
+      font-size: 0.95em;
       font-weight: bold;
       border: 2px solid #fff;
-      margin-left: 0.7em;
-      box-shadow: 0 1px 11px #b3d8ffb0;
+      margin-left: 0.5em;
+      box-shadow: 0 1px 6px #b3d8ffb0;
     }
     .cat-dropdown-bar {
       background: #fafdff;
-      border-radius: 16px;
-      margin-top: 12px;
-      margin-bottom: 7px;
-      padding: 0.9em 1em;
+      border-radius: 10px;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      padding: 0.5em 0.7em;
       display: flex;
       align-items: center;
-      gap: 0.9em;
+      gap: 0.5em;
       width: 100%;
-      min-height: 52px;
+      min-height: 44px;
     }
     .cat-dropdown-bar select {
-      font-size: 1.09em;
+      font-size: 0.98em;
       color: var(--main-blue);
       border: 1.5px solid var(--main-blue);
       background: #fff;
-      padding: 10px 14px;
-      border-radius: 10px;
+      padding: 9px 10px;
+      border-radius: 7px;
       flex: 1 1 auto;
       outline: none;
       min-width: 0;
       appearance: none;
-      height: 46px;
+      height: 36px;
       box-sizing: border-box;
     }
     .cat-dropdown-bar button {
       background: var(--main-blue);
       color: #fff;
-      border-radius: 12px;
-      font-size: 1.07em;
+      border-radius: 9px;
+      font-size: 0.99em;
       font-weight: bold;
-      padding: 12px 28px 12px 20px;
+      padding: 8px 18px 8px 13px;
       border: none;
-      height: 46px;
-      min-width: 124px;
+      height: 36px;
+      min-width: 80px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       box-sizing: border-box;
       box-shadow: 0 2px 6px #b3d8ff;
       transition: background 0.15s;
@@ -207,116 +208,117 @@
       background: var(--secondary-blue);
     }
     .cat-dropdown-bar .arrow {
-      font-size: 1.2em;
+      font-size: 1em;
       color: var(--secondary-blue);
-      margin-right: 6px;
+      margin-right: 3px;
       pointer-events: none;
     }
     .dashboards-container {
       background: #fff;
-      border-radius: 36px;
-      box-shadow: 0 8px 38px 0 rgba(33, 150, 243, 0.13);
-      margin-top: 28px;
-      margin-bottom: 28px;
-      padding: 44px 4vw 44px 4vw;
-      max-width: 1200px;
+      border-radius: 24px;
+      box-shadow: 0 8px 28px 0 rgba(33, 150, 243, 0.13);
+      margin-top: 18px;
+      margin-bottom: 18px;
+      padding: 18px 2vw 20px 2vw;
+      max-width: 98vw;
       margin-left: auto;
       margin-right: auto;
     }
     .dashboards-header {
       display: flex;
       align-items: center;
-      gap: 1em;
-      margin-bottom: 28px;
+      gap: 0.5em;
+      margin-bottom: 17px;
     }
     .dashboards-title {
-      font-size: 2.2em;
+      font-size: 1.38em;
       font-weight: 700;
       color: var(--main-blue);
       background: #eaf4ff;
-      border-radius: 18px;
-      padding: 16px 38px;
+      border-radius: 10px;
+      padding: 10px 15px;
       border: none;
       flex: 1 1 auto;
       word-break: break-word;
     }
     .back-btn {
       background: #ececec;
-      border-radius: 17px;
+      border-radius: 12px;
       color: var(--main-blue);
       font-weight: bold;
-      font-size: 1.13em;
+      font-size: 1em;
       border: none;
-      padding: 14px 36px;
+      padding: 8px 19px;
       cursor: pointer;
       transition: background 0.15s;
-      min-width: 120px;
+      min-width: 80px;
     }
     .back-btn:hover {
       background: #d4e4f2;
     }
     .dashboard-list-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2em;
-      margin-top: 16px;
+      grid-template-columns: 1fr;
+      gap: 1em;
+      margin-top: 11px;
     }
     .dashboard-item {
       background: var(--card-gradient);
-      border-radius: 18px;
+      border-radius: 13px;
       box-shadow: var(--shadow);
       transition: box-shadow 0.18s, transform 0.18s;
       border: none;
-      padding: 24px 22px 18px 22px;
+      padding: 12px 6px 8px 6px;
       display: flex;
       flex-direction: column;
-      gap: 1.1em;
-      min-height: 120px;
+      gap: 0.6em;
+      min-height: 90px;
       cursor: pointer;
       position: relative;
-      max-width: 470px;
+      max-width: 97vw;
       margin-left: auto;
       margin-right: auto;
     }
     .dashboard-item:hover {
       box-shadow: 0 18px 44px 0 rgba(33,150,243,0.18);
-      transform: scale(1.04);
+      transform: scale(1.02);
       z-index: 2;
     }
     .dashboard-item-header {
       display: flex;
       align-items: center;
-      gap: 1em;
+      gap: 0.6em;
     }
     .dashboard-item-num {
       color: #fff;
       background: var(--secondary-blue);
-      border-radius: 9px;
-      padding: 4px 13px;
+      border-radius: 7px;
+      padding: 3px 8px;
       font-weight: bold;
-      font-size: 1.1em;
+      font-size: 0.98em;
     }
     .dashboard-item-title {
       color: var(--main-blue);
       background: #fafdff;
-      border-radius: 10px;
+      border-radius: 7px;
       border: none;
-      padding: 8px 14px;
+      padding: 5px 7px;
       font-weight: 600;
-      font-size: 1.13em;
+      font-size: 0.99em;
       flex: 1 1 auto;
       word-break: break-word;
     }
     .dashboard-item-actions {
       display: flex;
-      gap: 1.1em;
+      gap: 0.6em;
       align-items: center;
+      flex-wrap: wrap;
     }
     .dashboard-item-actions button {
       border: none;
-      border-radius: 10px;
-      padding: 12px 22px;
-      font-size: 1.07em;
+      border-radius: 7px;
+      padding: 8px 13px;
+      font-size: 0.97em;
       font-weight: bold;
       background: var(--main-blue);
       color: #fff;
@@ -325,7 +327,7 @@
       transition: background 0.13s;
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 7px;
     }
     .dashboard-item-actions button.copy-btn {
       background: #90CAF9;
@@ -338,18 +340,43 @@
     .dashboard-item-actions button.copy-btn:hover {
       background: #1976D2;
     }
-    @media (max-width: 1100px) {
-      .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
-      .dashboard-list-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-      .cat-card { padding: 26px 10px 22px 10px; min-width: 0; }
-      .dashboard-item { padding: 13px 6px 10px 6px; min-width: 0; }
-    }
+    /* Mobile improvements */
     @media (max-width: 700px) {
-      .main-content { padding: 0 3px; }
-      .dashboards-container { padding: 12px 1vw 16px 1vw; }
-      .dashboard-grid { gap: 1.2rem; }
-      .dashboard-list-grid { gap: 0.8em; }
-      .cat-card { padding: 14px 4px 8px 4px; }
+      .header h1 { font-size: 1.23rem; letter-spacing: 1px; padding: 11px 0 6px 0;}
+      .logo-bar { min-height: 50px; }
+      .logo-bar img { height: 38px; }
+      .main-content { padding: 0 1.5vw; }
+      .dashboard-grid { grid-template-columns: 1fr; gap: 0.7rem; }
+      .cat-card { padding: 10px 2px 6px 2px; min-width: 0; border-radius: 14px;}
+      .cat-title { font-size: 1.01em; padding: 6px 9px;}
+      .cat-badge { font-size: 0.80em;}
+      .cat-icon-emoji { font-size: 1.3rem; width: 23px; height: 23px;}
+      .cat-header { min-height: 25px;}
+      .cat-dropdown-bar { padding: 0.3em 0.2em; border-radius: 7px; min-height: 32px;}
+      .cat-dropdown-bar select, .cat-dropdown-bar button { font-size: 0.96em; height: 32px; border-radius: 6px;}
+      .dashboards-container { border-radius: 10px; padding: 8px 1vw 10px 1vw;}
+      .dashboards-title { font-size: 1em; padding: 5px 8px;}
+      .back-btn { font-size: 0.96em; padding: 7px 9px; border-radius: 7px;}
+      .dashboard-list-grid { gap: 0.45em; }
+      .dashboard-item { border-radius: 7px; padding: 7px 2px 5px 2px;}
+      .dashboard-item-header { gap: 0.4em;}
+      .dashboard-item-title { font-size: 0.95em;}
+      .dashboard-item-num { font-size: 0.88em;}
+      .dashboard-item-actions { gap: 0.3em;}
+      .dashboard-item-actions button { font-size: 0.93em; padding: 6px 10px;}
+    }
+    /* Extra small (narrow phones) */
+    @media (max-width: 430px) {
+      .main-content { padding: 0 2px; }
+      .cat-card { padding: 5px 1px 3px 1px;}
+      .dashboards-container { padding: 3px 0.5vw 4px 0.5vw;}
+      .dashboard-list-grid { gap: 0.27em; }
+      .dashboard-item { font-size: 0.92em;}
+    }
+    /* Allow dashboard grid to scroll horizontally if needed for very small screens */
+    @media (max-width: 370px) {
+      .dashboard-grid { overflow-x: auto; }
+      .cat-card { min-width: 210px; }
     }
   </style>
 </head>
@@ -449,7 +476,7 @@
                 </select>
                 <span class="arrow">&#x25BC;</span>
                 <button onclick="openDashboardLink(this)">
-                  Navigate <span style="font-size:1.15em;">&#8594;</span>
+                  Navigate <span style="font-size:1.13em;">&#8594;</span>
                 </button>
               </div>
             </div>
@@ -475,10 +502,10 @@
                 </div>
                 <div class="dashboard-item-actions">
                   <button onclick="event.stopPropagation();window.open('${dashboard_links[name]}','_blank')">
-                    Open <span style="font-size:1.12em">&#8599;</span>
+                    Open <span style="font-size:1em">&#8599;</span>
                   </button>
                   <button class="copy-btn" onclick="event.stopPropagation();copyToClipboard('${dashboard_links[name]}')">
-                    Copy <span style="font-size:1.12em">&#128203;</span>
+                    Copy <span style="font-size:1em">&#128203;</span>
                   </button>
                 </div>
               </div>
