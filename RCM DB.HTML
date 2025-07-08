@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RCM Dashboard Navigator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --main-blue: #1565C0;
+      --secondary-blue: #2196F3;
+      --blue-light: #b3d8ff;
+      --blue-gradient: linear-gradient(135deg, #fafdff 0%, #e3f7ff 60%, #e6f2ff 100%);
+      --card-gradient: linear-gradient(120deg, #e6f2ff 0%, #b3d8ff 65%, #fff 100%);
+      --card-radius: 32px;
+      --shadow: 0 8px 40px 0 rgba(33,150,243,0.10);
+      --shadow-hover: 0 18px 60px 0 rgba(33,150,243,0.22);
+      --header-radius: 40px;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--blue-gradient);
+      color: var(--main-blue);
+      min-height: 100vh;
+    }
+    .logo-bar {
+      background: #fff;
+      border-bottom: 2px solid #e0e7ef;
+      box-shadow: 0 2px 16px 0 rgba(21,101,192,0.04);
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 0;
+    }
+    .logo-bar img {
+      height: 100px;
+      object-fit: contain;
+    }
+    .header {
+      background: linear-gradient(90deg, #1565C0, #90CAF9 100%);
+      border-bottom-left-radius: var(--header-radius);
+      border-bottom-right-radius: var(--header-radius);
+      box-shadow: 0 4px 18px 0 rgba(21,101,192,0.13);
+      padding-bottom: 1px;
+      text-align: center;
+    }
+    .header h1 {
+      color: #fff;
+      font-size: 2.7rem;
+      font-weight: bold;
+      letter-spacing: 4px;
+      margin: 0;
+      padding: 22px 0 10px 0;
+    }
+    .blue-line {
+      background: #1565C0;
+      height: 5px;
+      border-radius: 2px;
+      width: 80vw;
+      margin: 0 auto 0.7em auto;
+    }
+    .main-content {
+      max-width: 1450px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(415px, 1fr));
+      gap: 3rem;
+    }
+    .cat-card {
+      background: var(--card-gradient);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      border: none;
+      transition: box-shadow 0.21s, transform 0.21s;
+      padding: 38px 32px 32px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6em;
+      min-height: 320px;
+      min-width: 340px;
+      max-width: 520px;
+      position: relative;
+      cursor: default;
+    }
+    .cat-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-6px) scale(1.03);
+      z-index: 2;
+    }
+    .cat-header {
+      display: flex;
+      align-items: center;
+      gap: 1.4em;
+      min-height: 56px;
+    }
+    .cat-icon-btn {
+      background: transparent;
+      border: none;
+      border-radius: 18px;
+      padding: 0;
+      cursor: pointer;
+      transition: box-shadow 0.15s, background 0.12s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 54px;
+      min-height: 54px;
+    }
+    .cat-icon-btn:focus,
+    .cat-icon-btn:hover {
+      background: #eaf4ff;
+      box-shadow: 0 2px 8px #1565c022;
+      outline: none;
+    }
+    .cat-icon-emoji {
+      font-size: 2.4rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border: 2px solid #1976D2;
+      border-radius: 11px;
+      background: #fff;
+      text-align: center;
+      margin: 2px;
+    }
+    .cat-title {
+      font-size: 1.48em;
+      font-weight: 700;
+      color: var(--main-blue);
+      background: #fafdff;
+      border-radius: 14px;
+      padding: 10px 30px;
+      border: none;
+      flex: 1 1 auto;
+      word-break: break-word;
+      user-select: text;
+      letter-spacing: 0.5px;
+      min-width: 0;
+    }
+    .cat-badge {
+      width: 44px;
+      height: 44px;
+      background: var(--main-blue);
+      color: #fff;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.18em;
+      font-weight: bold;
+      border: 2px solid #fff;
+      margin-left: 0.7em;
+      box-shadow: 0 1px 11px #b3d8ffb0;
+    }
+    .cat-dropdown-bar {
+      background: #fafdff;
+      border-radius: 16px;
+      margin-top: 12px;
+      margin-bottom: 7px;
+      padding: 0.9em 1em;
+      display: flex;
+      align-items: center;
+      gap: 0.9em;
+      width: 100%;
+      min-height: 52px;
+    }
+    .cat-dropdown-bar select {
+      font-size: 1.09em;
+      color: var(--main-blue);
+      border: 1.5px solid var(--main-blue);
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      flex: 1 1 auto;
+      outline: none;
+      min-width: 0;
+      appearance: none;
+      height: 46px;
+      box-sizing: border-box;
+    }
+    .cat-dropdown-bar button {
+      background: var(--main-blue);
+      color: #fff;
+      border-radius: 12px;
+      font-size: 1.07em;
+      font-weight: bold;
+      padding: 12px 28px 12px 20px;
+      border: none;
+      height: 46px;
+      min-width: 124px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-sizing: border-box;
+      box-shadow: 0 2px 6px #b3d8ff;
+      transition: background 0.15s;
+    }
+    .cat-dropdown-bar button:hover {
+      background: var(--secondary-blue);
+    }
+    .cat-dropdown-bar .arrow {
+      font-size: 1.2em;
+      color: var(--secondary-blue);
+      margin-right: 6px;
+      pointer-events: none;
+    }
+    .dashboards-container {
+      background: #fff;
+      border-radius: 36px;
+      box-shadow: 0 8px 38px 0 rgba(33, 150, 243, 0.13);
+      margin-top: 28px;
+      margin-bottom: 28px;
+      padding: 44px 4vw 44px 4vw;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .dashboards-header {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      margin-bottom: 28px;
+    }
+    .dashboards-title {
+      font-size: 2.2em;
+      font-weight: 700;
+      color: var(--main-blue);
+      background: #eaf4ff;
+      border-radius: 18px;
+      padding: 16px 38px;
+      border: none;
+      flex: 1 1 auto;
+      word-break: break-word;
+    }
+    .back-btn {
+      background: #ececec;
+      border-radius: 17px;
+      color: var(--main-blue);
+      font-weight: bold;
+      font-size: 1.13em;
+      border: none;
+      padding: 14px 36px;
+      cursor: pointer;
+      transition: background 0.15s;
+      min-width: 120px;
+    }
+    .back-btn:hover {
+      background: #d4e4f2;
+    }
+    .dashboard-list-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2em;
+      margin-top: 16px;
+    }
+    .dashboard-item {
+      background: var(--card-gradient);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.18s, transform 0.18s;
+      border: none;
+      padding: 24px 22px 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1em;
+      min-height: 120px;
+      cursor: pointer;
+      position: relative;
+      max-width: 470px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .dashboard-item:hover {
+      box-shadow: 0 18px 44px 0 rgba(33,150,243,0.18);
+      transform: scale(1.04);
+      z-index: 2;
+    }
+    .dashboard-item-header {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+    }
+    .dashboard-item-num {
+      color: #fff;
+      background: var(--secondary-blue);
+      border-radius: 9px;
+      padding: 4px 13px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    .dashboard-item-title {
+      color: var(--main-blue);
+      background: #fafdff;
+      border-radius: 10px;
+      border: none;
+      padding: 8px 14px;
+      font-weight: 600;
+      font-size: 1.13em;
+      flex: 1 1 auto;
+      word-break: break-word;
+    }
+    .dashboard-item-actions {
+      display: flex;
+      gap: 1.1em;
+      align-items: center;
+    }
+    .dashboard-item-actions button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 22px;
+      font-size: 1.07em;
+      font-weight: bold;
+      background: var(--main-blue);
+      color: #fff;
+      box-shadow: 0 2px 6px #b3d8ff;
+      cursor: pointer;
+      transition: background 0.13s;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .dashboard-item-actions button.copy-btn {
+      background: #90CAF9;
+      color: #fff;
+      box-shadow: 0 2px 6px #eaf4ff;
+    }
+    .dashboard-item-actions button:hover {
+      background: var(--secondary-blue);
+    }
+    .dashboard-item-actions button.copy-btn:hover {
+      background: #1976D2;
+    }
+    @media (max-width: 1100px) {
+      .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+      .dashboard-list-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+      .cat-card { padding: 26px 10px 22px 10px; min-width: 0; }
+      .dashboard-item { padding: 13px 6px 10px 6px; min-width: 0; }
+    }
+    @media (max-width: 700px) {
+      .main-content { padding: 0 3px; }
+      .dashboards-container { padding: 12px 1vw 16px 1vw; }
+      .dashboard-grid { gap: 1.2rem; }
+      .dashboard-list-grid { gap: 0.8em; }
+      .cat-card { padding: 14px 4px 8px 4px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-bar">
+    <img src="https://campaignme.com/wp-content/uploads/2021/02/SG-Health_Brandmark-Artwork_Bilingual_STACK_CMYK.jpg" alt="Logo" />
+  </div>
+  <div class="header">
+    <h1>RCM Dashboard Navigator</h1>
+    <div class="blue-line"></div>
+  </div>
+  <div class="main-content" id="main-content"></div>
+  <script>
+    // Dashboard Data
+    const dashboard_links = {
+      "OP_Preauthorization_DashBoard": "https://app.powerbi.com/groups/me/reports/c215b8b0-1ac6-4745-a788-63da1ecafb4b/965311ef4b5ee948a245?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
+      "Naphies_DashBoard": "https://app.powerbi.com/groups/me/reports/edf1bba8-d1f2-453a-b4dc-7d7cf5834f4f/ReportSectiondc4f1f4f2c25f063f01d?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
+      "E-Claim_Validation_DashBoard": "https://app.powerbi.com/groups/me/reports/c3d2ea03-70e2-47fb-ac01-65ed42b8c358/77d84b4586bf344598fb?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi&bookmarkGuid=f7b53455-12df-4fa1-acef-b09c9829605e",
+      "RCM_Manpower_DashBoard": "https://app.powerbi.com/groups/me/reports/a78e4984-9a5b-4022-a800-918b3f32724d/8e9095fdea3fda17853d?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
+      "Audit Compliance Dashboard": "https://app.powerbi.com/groups/me/reports/84e9f51c-6e19-4b65-9ffc-793beb6b1287/ae4a61bb7a8766f178b0?experience=power-bi",
+      "SGH_Contracts_DashBoard": "https://app.powerbi.com/groups/me/reports/23144852-a4c4-4cfe-afbc-29a473acb935/b4ada3c5df8c38974dc2?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
+      "Staff_Policy_Consumption_DashBoard": "https://app.powerbi.com/groups/me/reports/a256b591-703b-430f-b9e9-4a2365d8736e/ReportSection47fdb74e21248720731a?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
+      "Policy_Monitoring_DashBoard": "https://app.powerbi.com/groups/me/reports/01b6578d-98a0-4204-b9fd-1f1c136a8975/c5d631da8b86ca187a3e?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi&bookmarkGuid=5ad2b1c0-86a1-4f84-8f6b-2222b175bc7e",
+      "Agreed_Pricelists_DashBoard": "https://app.powerbi.com/groups/me/reports/6c13bd2b-c53f-4cab-a81a-f3dcc9a4f609/ReportSection?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi&bookmarkGuid=6480c8b8-8646-4dfe-9d4f-70573682dc16",
+      "SBS_Mapping_Module": "http://130.1.73.15/Dashboards/report/PriceList/ServiceMapping_AllBranches",
+      "SBS_Mapping_Validation_DashBoard": "https://app.powerbi.com/groups/me/reports/1442e04b-f02c-4be2-b763-2edc75cb7361/6807a9ce09dc9d4583d0?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
+      "Growth_Analysis_DashBoard": "https://app.powerbi.com/groups/me/reports/af1fb3b6-beab-4013-ac24-1f8795482b2d/b24668afb685aede4655?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
+      "IP_Preauthorization_DashBoard": "https://app.powerbi.com/groups/me/reports/1733c343-db4d-4678-adee-5f8fbb5443a1/427dff03aaa3b53b64a4?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
+      "Monthly_Report_DashBoard": "https://app.powerbi.com/groups/me/reports/ff5e278e-5086-49f7-a1e6-e68e299e7308",
+      "MOH_Rejection": "https://app.powerbi.com/home?mohrejectionexample",
+      "RCM_Team_KPIs_DashBoard": "https://app.powerbi.com/groups/me/reports/7c795482-3a53-4b6c-b3c2-b71ea1b48479/ef26965b1416e1b0c74b?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
+      "Tariff_Information_Reports": "http://130.1.73.15/Dashboards/report/PriceList/ServiceMapping_AllBranches",
+      "HomeCare_DashBoard": "https://app.powerbi.com/groups/me/reports/4ae7e66e-fd98-4a06-a620-83c24f9617e9/b24668afb685aede4655?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
+      "Direct_Account_Dashboard": "https://app.powerbi.com/groups/me/reports/b32396fc-834e-4eb6-af15-d3cac3aa5395/148216b2c12637972eeb?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
+      "Collection_Vs_Billing": "https://lookerstudio.google.com/reporting/74318e6e-4c3e-4610-a8f8-e76471828cce",
+      "Reconciliation_Status": "https://lookerstudio.google.com/reporting/6a3c53dd-0616-4701-b625-0500acd957de",
+      "Billing_Monthly_Status": "https://lookerstudio.google.com/reporting/4dfb259f-dde4-4b81-8a32-b8cbd672c6ad",
+      "Collection_Vs_Budget": "https://lookerstudio.google.com/reporting/6047926a-0f27-4c73-ad20-94427400e017",
+      "Doctor_Fees_Dashboard": "https://lookerstudio.google.com/reporting/171bdbc4-6b0a-4649-85c0-f944a118d679",
+      "Tracking_sheet_For_Submission_And_Confirmation_Online–Live": "https://lookerstudio.google.com/reporting/6ca94700-db35-45a8-ba07-77893d179eb7"
+    };
+    const categories = {
+      "Pricing & Profiling": [
+        "Agreed_Pricelists_DashBoard",
+        "HomeCare_DashBoard",
+        "Policy_Monitoring_DashBoard",
+        "SBS_Mapping_Validation_DashBoard",
+        "SBS_Mapping_Module",
+        "SGH_Contracts_DashBoard",
+        "Tariff_Information_Reports"
+      ],
+      "Approvals": [
+        "OP_Preauthorization_DashBoard",
+        "IP_Preauthorization_DashBoard"
+      ],
+      "Claims & Resubmission": [
+        "E-Claim_Validation_DashBoard",
+        "Naphies_DashBoard",
+        "Direct_Account_Dashboard",
+        "MOH_Rejection",
+        "Tracking_sheet_For_Submission_And_Confirmation_Online–Live"
+      ],
+      "Audit": ["Audit Compliance Dashboard"],
+      "Reconciliation & Collection": [
+        "Collection_Vs_Billing",
+        "Reconciliation_Status",
+        "Collection_Vs_Budget",
+        "Billing_Monthly_Status",
+        "Doctor_Fees_Dashboard"
+      ],
+      "RCM": [
+        "Growth_Analysis_DashBoard",
+        "RCM_Manpower_DashBoard",
+        "RCM_Team_KPIs_DashBoard",
+        "Staff_Policy_Consumption_DashBoard",
+        "Monthly_Report_DashBoard"
+      ]
+    };
+
+    function renderCategories() {
+      // Sort categories by number of dashboards (descending)
+      const sortedCats = Object.entries(categories).sort((a, b) => b[1].length - a[1].length);
+      main_content.innerHTML = `
+        <div class="dashboard-grid">
+          ${sortedCats.map(([cat, dashboards], i) => `
+            <div class="cat-card">
+              <div class="cat-header">
+                <button class="cat-icon-btn" title="Show Dashboards" onclick="showDashboards('${cat.replace(/'/g,"\\'")}'); event.stopPropagation();">
+                  <span class="cat-icon-emoji">📊</span>
+                </button>
+                <div class="cat-title">${cat.replace(/&/g, '&amp;').replace(/_/g, ' & ')}</div>
+                <div class="cat-badge">${dashboards.length}</div>
+              </div>
+              <div class="cat-dropdown-bar">
+                <select>
+                  ${dashboards.map(d => `<option value="${d}">${d.replace(/_/g, ' ')}</option>`).join('')}
+                </select>
+                <span class="arrow">&#x25BC;</span>
+                <button onclick="openDashboardLink(this)">
+                  Navigate <span style="font-size:1.15em;">&#8594;</span>
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function showDashboards(cat) {
+      const dashboards = categories[cat];
+      main_content.innerHTML = `
+        <div class="dashboards-container">
+          <div class="dashboards-header">
+            <div class="dashboards-title">${cat.replace(/&/g, '&amp;').replace(/_/g, ' & ')}</div>
+            <button class="back-btn" onclick="renderCategories()">← Back</button>
+          </div>
+          <div class="dashboard-list-grid">
+            ${dashboards.map((name, i) => `
+              <div class="dashboard-item" title="Click to open dashboard" onclick="window.open('${dashboard_links[name]}','_blank')">
+                <div class="dashboard-item-header">
+                  <span class="dashboard-item-num">${i+1}.</span>
+                  <span class="dashboard-item-title">${name.replace(/_/g, ' ')}</span>
+                </div>
+                <div class="dashboard-item-actions">
+                  <button onclick="event.stopPropagation();window.open('${dashboard_links[name]}','_blank')">
+                    Open <span style="font-size:1.12em">&#8599;</span>
+                  </button>
+                  <button class="copy-btn" onclick="event.stopPropagation();copyToClipboard('${dashboard_links[name]}')">
+                    Copy <span style="font-size:1.12em">&#128203;</span>
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function openDashboardLink(btn) {
+      const select = btn.parentElement.querySelector('select');
+      const dash = select.value;
+      window.open(dashboard_links[dash], '_blank');
+    }
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text);
+      alert('Link copied to clipboard!');
+    }
+    const main_content = document.getElementById('main-content');
+    renderCategories();
+  </script>
+</body>
+</html>
