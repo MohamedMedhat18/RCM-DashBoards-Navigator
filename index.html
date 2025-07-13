@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>RCM Dashboard Navigator</title>
+  <!-- Favicon as JPG (make sure sgh.jpg is in the same folder as this HTML file) -->
+  <link rel="icon" type="image/jpeg" href="sgh.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root {
@@ -22,6 +24,7 @@
       background: var(--blue-gradient);
       color: var(--main-blue);
       min-height: 100vh;
+      transition: background 0.3s;
     }
     .logo-bar {
       background: #fff;
@@ -32,10 +35,12 @@
       align-items: center;
       justify-content: center;
       padding: 16px 0;
+      transition: min-height 0.3s, padding 0.3s;
     }
     .logo-bar img {
       height: 100px;
       object-fit: contain;
+      transition: height 0.3s;
     }
     .header {
       background: linear-gradient(90deg, #1565C0, #90CAF9 100%);
@@ -44,6 +49,7 @@
       box-shadow: 0 4px 18px 0 rgba(21,101,192,0.13);
       padding-bottom: 1px;
       text-align: center;
+      transition: border-radius 0.3s, padding 0.3s;
     }
     .header h1 {
       color: #fff;
@@ -52,6 +58,7 @@
       letter-spacing: 4px;
       margin: 0;
       padding: 22px 0 10px 0;
+      transition: font-size 0.3s, padding 0.3s;
     }
     .blue-line {
       background: #1565C0;
@@ -59,23 +66,26 @@
       border-radius: 2px;
       width: 80vw;
       margin: 0 auto 0.7em auto;
+      transition: width 0.3s, height 0.3s;
     }
     .main-content {
       max-width: 1450px;
       margin: 40px auto;
       padding: 0 20px;
+      transition: max-width 0.3s, margin 0.3s, padding 0.3s;
     }
     .dashboard-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(415px, 1fr));
       gap: 3rem;
+      transition: gap 0.3s;
     }
     .cat-card {
       background: var(--card-gradient);
       border-radius: var(--card-radius);
       box-shadow: var(--shadow);
       border: none;
-      transition: box-shadow 0.21s, transform 0.21s;
+      transition: box-shadow 0.21s, transform 0.21s, padding 0.3s, min-width 0.3s, max-width 0.3s;
       padding: 38px 32px 32px 32px;
       display: flex;
       flex-direction: column;
@@ -338,20 +348,47 @@
     .dashboard-item-actions button.copy-btn:hover {
       background: #1976D2;
     }
+    /* Responsive & Mobile Styles */
     @media (max-width: 1100px) {
       .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
       .dashboard-list-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
       .cat-card { padding: 26px 10px 22px 10px; min-width: 0; }
       .dashboard-item { padding: 13px 6px 10px 6px; min-width: 0; }
     }
-    @media (max-width: 700px) {
+    @media (max-width: 700px), (pointer:coarse) {
       .main-content { padding: 0 3px; }
       .dashboards-container { padding: 12px 1vw 16px 1vw; }
-      .dashboard-grid { gap: 1.2rem; }
-      .dashboard-list-grid { gap: 0.8em; }
-      .cat-card { padding: 14px 4px 8px 4px; }
+      .dashboard-grid { gap: 1.2rem; grid-template-columns: 1fr; }
+      .dashboard-list-grid { gap: 0.8em; grid-template-columns: 1fr; }
+      .cat-card { padding: 12px 2px 6px 2px; min-width: 0; max-width: 100%; }
+      .dashboard-item { padding: 8px 2px 8px 2px; min-width: 0; max-width: 100%; }
+      .logo-bar { min-height: 56px; padding: 4px 0; }
+      .logo-bar img { height: 40px; }
+      .header h1 { font-size: 1.25rem; padding: 8px 0 4px 0; }
+      .blue-line { height: 3px; width: 96vw; }
     }
   </style>
+  <script>
+    // Mobile/Windows appearance adjustment function
+    function adjustForDevice() {
+      let isMobile = false;
+      // Use navigator.userAgent for a robust mobile check
+      if (typeof navigator !== 'undefined') {
+        isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      }
+      // Add a class to body for mobile or windows
+      if (isMobile) {
+        document.body.classList.add('mobile-view');
+        document.body.classList.remove('windows-view');
+      } else {
+        document.body.classList.add('windows-view');
+        document.body.classList.remove('mobile-view');
+      }
+      // Optionally trigger style changes here, or rely on CSS media queries above
+    }
+    window.addEventListener('DOMContentLoaded', adjustForDevice);
+    window.addEventListener('resize', adjustForDevice);
+  </script>
 </head>
 <body>
   <div class="logo-bar">
