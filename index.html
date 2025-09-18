@@ -404,7 +404,7 @@
       .dashboard-list-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
     }
   </style>
-  <!-- خاص بزر تفعيل عرض الديسكتوب -->
+  
   <style id="desktop-override-style"></style>
   <script>
     // Device class for future visual adjustments
@@ -429,10 +429,10 @@
   <div class="logo-bar">
     <img src="https://campaignme.com/wp-content/uploads/2021/02/SG-Health_Brandmark-Artwork_Bilingual_STACK_CMYK.jpg" alt="Logo" />
   </div>
-  <!-- زر تفعيل الديسكتوب -->
+ 
   <div style="text-align:right; padding: 0.7em 2vw 0 0;">
     <button id="toggle-desktop-view" style="font-size:1em; background:#1976D2; color:#fff; border:none; border-radius:0.7em; padding:0.7em 1.8em; cursor:pointer; box-shadow:0 2px 6px #b3d8ff;">
-      تفعيل عرض الديسكتوب
+      view as Desktop
     </button>
   </div>
   <div class="header">
@@ -441,7 +441,6 @@
   </div>
   <div class="main-content" id="main-content"></div>
   <script>
-    // زر تبديل وضع الديسكتوب
     document.getElementById('toggle-desktop-view').onclick = function() {
       var style = document.getElementById('desktop-override-style');
       if (style.textContent === "") {
@@ -457,10 +456,10 @@
             .blue-line { height: .35em; width: 80vw; }
           }
         `;
-        this.textContent = "تعطيل عرض الديسكتوب";
+        this.textContent = "View As Mobile ";
       } else {
         style.textContent = "";
-        this.textContent = "تفعيل عرض الديسكتوب";
+        this.textContent = "View As Desktop";
       }
     }
 
@@ -642,3 +641,4 @@
   </script>
 </body>
 </html>
+
