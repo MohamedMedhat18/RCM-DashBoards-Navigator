@@ -436,9 +436,51 @@
     @media (min-width: 700px) {
       .view-toggle-btn { font-size: 1.6em; }
     }
+    /* Modal Styles */
+    .modal-bg {
+      position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
+      background: #0007; display: flex; align-items: center; justify-content: center;
+      z-index: 50000; display: none;
+    }
+    .modal-box {
+      background: #fff; border-radius: 1.5em; padding: 2em 2em 1.2em 2em; box-shadow: 0 8px 40px #1565c055;
+      min-width: 300px; max-width: 95vw; position: relative;
+      display: flex; flex-direction: column; gap: 1em; align-items: stretch;
+    }
+    .modal-box label { font-weight: bold; margin-bottom: .25em; color: #1565C0; }
+    .modal-box input {
+      font-size: 1em; padding: .6em .9em; border-radius: .7em; border: 1.5px solid #1565C0;
+      margin-bottom: .7em;
+    }
+    .modal-box button {
+      background: #1565C0; color: #fff; border: none; border-radius: .7em;
+      font-size: 1em; padding: .7em 1.4em; cursor: pointer; font-weight: bold; margin-top: 0.5em;
+    }
+    .modal-box button:hover { background: #1976D2; }
+    .modal-error { color: #b00; font-size: .95em; min-height: 1.4em;}
+    .close-modal-btn {
+      position: absolute; top: 0.8em; right: 1.1em; background: none; border: none; font-size: 1.5em;
+      color: #888; cursor: pointer;
+    }
+    @media (max-width: 500px) {
+      .modal-box { padding: 1.1em .5em .7em .5em; }
+    }
   </style>
 </head>
 <body>
+  <!-- Modal for entering username/password -->
+  <div class="modal-bg" id="loginModal">
+    <form class="modal-box" id="loginForm" onsubmit="return false;">
+      <button class="close-modal-btn" type="button" onclick="closeLoginModal()">&times;</button>
+      <div style="font-size:1.2em;font-weight:bold;margin-bottom:0.5em;" id="modalTitle"></div>
+      <label for="modalUsername">Username:</label>
+      <input id="modalUsername" type="text" autocomplete="username" required>
+      <label for="modalPassword">Password:</label>
+      <input id="modalPassword" type="password" autocomplete="current-password" required>
+      <div class="modal-error" id="modalError"></div>
+      <button type="submit" onclick="submitLoginModal()">Login</button>
+    </form>
+  </div>
   <div class="logo-bar">
     <img src="https://campaignme.com/wp-content/uploads/2021/02/SG-Health_Brandmark-Artwork_Bilingual_STACK_CMYK.jpg" alt="Logo" />
   </div>
@@ -597,6 +639,41 @@
       ]
     };
 
+    // Modal login logic
+    let currentDashboard = null;
+    function showDashboardLogin(dash) {
+      const linkObj = dashboard_links[dash];
+      // Only for dashboards with user/pass
+      currentDashboard = dash;
+      document.getElementById('modalTitle').textContent = "Login for " + dash;
+      document.getElementById('modalUsername').value = "";
+      document.getElementById('modalPassword').value = "";
+      document.getElementById('modalError').textContent = "";
+      document.getElementById('loginModal').style.display = "flex";
+      setTimeout(() => document.getElementById('modalUsername').focus(), 150);
+    }
+    function closeLoginModal() {
+      document.getElementById('loginModal').style.display = "none";
+      currentDashboard = null;
+    }
+    function submitLoginModal() {
+      if (!currentDashboard) return;
+      const linkObj = dashboard_links[currentDashboard];
+      const user = document.getElementById('modalUsername').value.trim();
+      const pass = document.getElementById('modalPassword').value.trim();
+      const err = document.getElementById('modalError');
+      if (user === linkObj.user && pass === linkObj.password) {
+        closeLoginModal();
+        window.open(linkObj.url, '_blank');
+      } else {
+        err.textContent = "Invalid username or password.";
+      }
+    }
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault(); submitLoginModal();
+    });
+
+    // Core rendering
     function renderCategories() {
       // Sort categories by number of dashboards (descending)
       const sortedCats = Object.entries(categories).sort((a, b) => b[1].length - a[1].length);
@@ -678,14 +755,6 @@
       }
     }
 
-    function showDashboardLogin(dash) {
-      const linkObj = dashboard_links[dash];
-      alert(
-        `Dashboard: ${dash}\nURL: ${linkObj.url}\nUsername: ${linkObj.user}\nPassword: ${linkObj.password}`
-      );
-      window.open(linkObj.url, '_blank');
-    }
-
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text);
       alert('Link copied to clipboard!');
@@ -695,4 +764,3 @@
   </script>
 </body>
 </html>
-
