@@ -44,7 +44,6 @@
       object-fit: contain;
       max-width: 90vw;
     }
-
     .header {
       background: linear-gradient(90deg, #1565C0, #90CAF9 100%);
       border-bottom-left-radius: var(--header-radius);
@@ -236,7 +235,6 @@
       margin-right: 6px;
       pointer-events: none;
     }
-
     .dashboards-container {
       background: #fff;
       border-radius: 2.2rem;
@@ -377,10 +375,50 @@
       background: #1976D2;
     }
 
-    @media (max-width: 1100px) {
-      .main-content { max-width: 99vw; }
-      .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-      .dashboard-list-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+    /* Floating badge styles */
+    .floating-dashboards-badge {
+      position: fixed;
+      bottom: 34px;
+      right: 32px;
+      background: linear-gradient(98deg, #2196F3, #42a5f5 90%);
+      color: #fff;
+      border-radius: 2.1em;
+      box-shadow: 0 8px 40px 0 rgba(33,150,243,0.18);
+      padding: 0.7em 2.6em 0.7em 1.45em;
+      font-size: 1.22em;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.85em;
+      z-index: 9999;
+      min-width: 0;
+      user-select: none;
+      cursor: default;
+      transition: box-shadow 0.18s, transform 0.18s;
+    }
+    .floating-dashboards-badge:hover {
+      box-shadow: 0 18px 44px #42a5f577;
+      transform: scale(1.04);
+    }
+    .floating-charts-icon {
+      width: 42px; height: 42px;
+      background: #fff;
+      border-radius: 1.25em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px #1976d222;
+    }
+    .floating-charts-icon svg {
+      width: 28px;
+      height: 28px;
+      display: block;
+    }
+    .floating-dashboard-label {
+      font-size: 1.12em;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-left: 0.17em;
     }
     @media (max-width: 700px), (pointer:coarse) {
       .main-content { padding: 0 1vw; }
@@ -391,96 +429,18 @@
       .logo-bar img { height: 2rem; }
       .header h1 { font-size: 1.12rem; padding: 0.5em 0 0.25em 0; }
       .blue-line { height: 2px; width: 96vw; }
-    }
-    body.desktop-view .main-content { padding: 2vw !important; }
-    body.desktop-view .dashboards-container { padding: 2.5vw 2vw !important; }
-    body.desktop-view .dashboard-grid,
-    body.desktop-view .dashboard-list-grid { gap: 2vw !important; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important; }
-    body.desktop-view .cat-card,
-    body.desktop-view .dashboard-item { padding: 2vw 1vw !important; }
-    body.desktop-view .logo-bar { min-height: 7em !important; padding: 1em 0 !important; }
-    body.desktop-view .logo-bar img { height: 6em !important; }
-    body.desktop-view .header h1 { font-size: clamp(1.2rem, 4vw, 2.7rem) !important; padding: 1.2em 0 0.6em 0 !important; }
-    body.desktop-view .blue-line { height: .35em !important; width: 80vw !important; }
-    .view-toggle-btn {
-      background: #1976D2;
-      color: #fff;
-      border: none;
-      border-radius: 0.7em;
-      padding: 0.55em 1em;
-      font-size: 1.7em;
-      cursor: pointer;
-      box-shadow: 0 2px 6px #b3d8ff;
-      margin: 0.7em 2vw 0 0;
-      outline: none;
-      transition: background .18s, box-shadow .23s, transform .22s;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 55px;
-      min-height: 46px;
-    }
-    .view-toggle-btn:hover, .view-toggle-btn:focus {
-      background: #2196F3;
-      box-shadow: 0 6px 14px #90caf9c7;
-      transform: scale(1.08);
-    }
-    .view-toggle-btn .icon-label {
-      font-size: .65em;
-      margin-right: 0.45em;
-      color: #fff;
-      font-weight: bold;
-      user-select: none;
-      display: none;
-    }
-    @media (min-width: 700px) {
-      .view-toggle-btn { font-size: 1.6em; }
-    }
-    /* Modal Styles */
-    .modal-bg {
-      position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
-      background: #0007; display: flex; align-items: center; justify-content: center;
-      z-index: 50000; display: none;
-    }
-    .modal-box {
-      background: #fff; border-radius: 1.5em; padding: 2em 2em 1.2em 2em; box-shadow: 0 8px 40px #1565c055;
-      min-width: 300px; max-width: 95vw; position: relative;
-      display: flex; flex-direction: column; gap: 1em; align-items: stretch;
-    }
-    .modal-box label { font-weight: bold; margin-bottom: .25em; color: #1565C0; }
-    .modal-box input {
-      font-size: 1em; padding: .6em .9em; border-radius: .7em; border: 1.5px solid #1565C0;
-      margin-bottom: .7em;
-    }
-    .modal-box button {
-      background: #1565C0; color: #fff; border: none; border-radius: .7em;
-      font-size: 1em; padding: .7em 1.4em; cursor: pointer; font-weight: bold; margin-top: 0.5em;
-    }
-    .modal-box button:hover { background: #1976D2; }
-    .modal-error { color: #b00; font-size: .95em; min-height: 1.4em;}
-    .close-modal-btn {
-      position: absolute; top: 0.8em; right: 1.1em; background: none; border: none; font-size: 1.5em;
-      color: #888; cursor: pointer;
-    }
-    @media (max-width: 500px) {
-      .modal-box { padding: 1.1em .5em .7em .5em; }
+      .floating-dashboards-badge {
+        right: 7px;
+        bottom: 12px;
+        font-size: 1em;
+        padding: 0.45em 1em 0.45em 0.7em;
+      }
+      .floating-charts-icon { width: 28px; height: 28px; }
+      .floating-charts-icon svg { width:18px; height:18px; }
     }
   </style>
 </head>
 <body>
-  <!-- Modal for entering username/password -->
-  <div class="modal-bg" id="loginModal">
-    <form class="modal-box" id="loginForm" onsubmit="return false;">
-      <button class="close-modal-btn" type="button" onclick="closeLoginModal()">&times;</button>
-      <div style="font-size:1.2em;font-weight:bold;margin-bottom:0.5em;" id="modalTitle"></div>
-      <label for="modalUsername">Username:</label>
-      <input id="modalUsername" type="text" autocomplete="username" required>
-      <label for="modalPassword">Password:</label>
-      <input id="modalPassword" type="password" autocomplete="current-password" required>
-      <div class="modal-error" id="modalError"></div>
-      <button type="submit" onclick="submitLoginModal()">Login</button>
-    </form>
-  </div>
   <div class="logo-bar">
     <img src="https://campaignme.com/wp-content/uploads/2021/02/SG-Health_Brandmark-Artwork_Bilingual_STACK_CMYK.jpg" alt="Logo" />
   </div>
@@ -494,8 +454,19 @@
     <div class="blue-line"></div>
   </div>
   <div class="main-content" id="main-content"></div>
+  <!-- Floating badge: أسفل يمين الصفحة -->
+  <div class="floating-dashboards-badge" id="floatingDashboardsBadge">
+    <span class="floating-charts-icon">
+      <svg viewBox="0 0 32 32">
+        <rect x="4" y="16" width="5" height="12" rx="1.2" fill="#81d4fa"/>
+        <rect x="13" y="10" width="5" height="18" rx="1.2" fill="#66bb6a"/>
+        <rect x="22" y="6" width="5" height="22" rx="1.2" fill="#d32f2f"/>
+      </svg>
+    </span>
+    <span id="dashboardCount">0</span>
+    <span class="floating-dashboard-label">Dashboards</span>
+  </div>
   <script>
-    // Manual toggle only: do NOT auto-change on resize!
     const toggleBtn = document.getElementById('toggle-desktop-view');
     const toggleIcon = document.getElementById('toggle-icon');
     function updateToggleBtn() {
@@ -658,43 +629,7 @@
       ]
     };
 
-    // Modal login logic
-    let currentDashboard = null;
-    function showDashboardLogin(dash) {
-      const linkObj = dashboard_links[dash];
-      // Only for dashboards with user/pass
-      currentDashboard = dash;
-      document.getElementById('modalTitle').textContent = "Login for " + dash;
-      document.getElementById('modalUsername').value = "";
-      document.getElementById('modalPassword').value = "";
-      document.getElementById('modalError').textContent = "";
-      document.getElementById('loginModal').style.display = "flex";
-      setTimeout(() => document.getElementById('modalUsername').focus(), 150);
-    }
-    function closeLoginModal() {
-      document.getElementById('loginModal').style.display = "none";
-      currentDashboard = null;
-    }
-    function submitLoginModal() {
-      if (!currentDashboard) return;
-      const linkObj = dashboard_links[currentDashboard];
-      const user = document.getElementById('modalUsername').value.trim();
-      const pass = document.getElementById('modalPassword').value.trim();
-      const err = document.getElementById('modalError');
-      if (user === linkObj.user && pass === linkObj.password) {
-        closeLoginModal();
-        window.open(linkObj.url, '_blank');
-      } else {
-        err.textContent = "Invalid username or password.";
-      }
-    }
-    document.getElementById('loginForm').addEventListener('submit', function(e){
-      e.preventDefault(); submitLoginModal();
-    });
-
-    // Core rendering
     function renderCategories() {
-      // Sort categories by number of dashboards (descending)
       const sortedCats = Object.entries(categories).sort((a, b) => b[1].length - a[1].length);
       main_content.innerHTML = `
         <div class="dashboard-grid">
@@ -734,13 +669,8 @@
             ${dashboards.map((name, i) => {
               const linkObj = dashboard_links[name];
               let openAction, copyAction;
-              if (typeof linkObj === "object" && linkObj.url) {
-                openAction = `event.stopPropagation();showDashboardLogin('${name}')`;
-                copyAction = `event.stopPropagation();copyToClipboard('${linkObj.url}')`;
-              } else {
-                openAction = `event.stopPropagation();window.open('${linkObj}','_blank')`;
-                copyAction = `event.stopPropagation();copyToClipboard('${linkObj}')`;
-              }
+              openAction = `event.stopPropagation();window.open('${linkObj}','_blank')`;
+              copyAction = `event.stopPropagation();copyToClipboard('${linkObj}')`;
               return `
               <div class="dashboard-item" title="Click to open dashboard" onclick="${openAction}">
                 <div class="dashboard-item-header">
@@ -767,32 +697,25 @@
       const select = btn.parentElement.querySelector('select');
       const dash = select.value;
       const linkObj = dashboard_links[dash];
-      if (typeof linkObj === "object" && linkObj.url) {
-        showDashboardLogin(dash);
-      } else {
-        window.open(linkObj, '_blank');
-      }
+      window.open(linkObj, '_blank');
     }
 
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text);
       alert('Link copied to clipboard!');
     }
+    // Floating badge count
+    function getTotalDashboards() {
+      return Object.values(categories).reduce((total, arr) => total + arr.length, 0);
+    }
+    function updateFloatingBadgeCount() {
+      document.getElementById('dashboardCount').textContent = getTotalDashboards();
+    }
+
+    // Initial load
     const main_content = document.getElementById('main-content');
     renderCategories();
+    updateFloatingBadgeCount();
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
