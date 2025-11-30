@@ -18,6 +18,7 @@
     }
     html { box-sizing: border-box; font-size: 16px; }
     *, *:before, *:after { box-sizing: inherit; }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', Arial, sans-serif;
@@ -71,12 +72,14 @@
       max-width: 1800px;
       margin: 2vw auto;
       padding: 0 2vw;
+      transition: all 0.25s;
     }
     .dashboard-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
       gap: 2vw;
       width: 100%;
+      transition: all 0.23s;
     }
     .cat-card {
       background: var(--card-gradient);
@@ -91,7 +94,7 @@
       min-height: 180px;
       max-width: 100%;
       word-break: break-word;
-      transition: box-shadow 0.2s, transform 0.2s;
+      transition: box-shadow 0.2s, transform 0.2s, font-size 0.2s, padding 0.16s;
     }
     .cat-card:hover {
       box-shadow: var(--shadow-hover);
@@ -155,6 +158,7 @@
       user-select: text;
       text-align: left;
       overflow-wrap: anywhere;
+      transition: font-size 0.19s;
     }
     .cat-badge {
       width: 2.2rem;
@@ -240,7 +244,6 @@
       margin-left: auto;
       margin-right: auto;
       width: 100%;
-      box-sizing: border-box;
     }
     .dashboards-header {
       display: flex;
@@ -263,6 +266,7 @@
       word-break: break-word;
       text-align: left;
       overflow-wrap: anywhere;
+      transition: font-size 0.17s;
     }
     .back-btn {
       background: #ececec;
@@ -285,6 +289,7 @@
       grid-template-columns: repeat(auto-fit, minmax(min(180px,100%), 1fr));
       gap: 1.2vw;
       width: 100%;
+      transition: all 0.23s;
     }
     .dashboard-item {
       background: var(--card-gradient);
@@ -296,7 +301,7 @@
       width: 100%;
       word-break: break-word;
       box-sizing: border-box;
-      transition: box-shadow 0.18s, transform 0.18s;
+      transition: box-shadow 0.18s, transform 0.18s, font-size 0.19s, padding 0.17s;
       flex: 1 1 auto;
     }
     .dashboard-item:hover {
@@ -333,6 +338,7 @@
       word-break: break-word;
       text-align: left;
       overflow-wrap: anywhere;
+      transition: font-size 0.19s;
     }
     .dashboard-item-actions {
       display: flex;
@@ -478,6 +484,34 @@
       .toggle-icon svg { width: 12px; height: 12px;}
       .toggle-label { font-size: 0.91em;}
     }
+
+    /* DESKTOP VIEW OVERRIDES */
+    body.desktop-view .main-content {
+      max-width: 1680px !important;
+      padding: 38px 4vw !important;
+    }
+    body.desktop-view .dashboard-grid {
+      grid-template-columns: repeat(auto-fit, minmax(430px, 1fr)) !important;
+      gap: 3vw !important;
+    }
+    body.desktop-view .cat-card {
+      padding: 3vw 1.5vw !important;
+      min-height: 220px !important;
+      font-size: 1.12em !important;
+    }
+    body.desktop-view .dashboard-item {
+      padding: 2vw 1vw !important;
+      min-height: 110px !important;
+      font-size: 1.09em !important;
+    }
+    body.desktop-view .cat-title,
+    body.desktop-view .dashboard-item-title,
+    body.desktop-view .dashboards-title {
+      font-size: 1.25em !important;
+    }
+    body.desktop-view .logo-bar img { height: 8em !important; }
+    body.desktop-view .dashboard-badge,
+    body.desktop-view .view-toggle-badge { font-size: 1.16em !important;}
   </style>
 </head>
 <body>
@@ -493,7 +527,6 @@
   <div class="badges-bar">
     <div class="dashboard-badge" title="Total Dashboards">
       <span class="dashboard-icon">
-        <!-- Modern charts SVG icon -->
         <svg viewBox="0 0 32 32">
           <rect x="4" y="16" width="5" height="12" rx="1.2" fill="#81d4fa"/>
           <rect x="13" y="10" width="5" height="18" rx="1.2" fill="#66bb6a"/>
@@ -504,14 +537,13 @@
       <span class="dashboard-label">Dashboards</span>
     </div>
     <button class="view-toggle-badge" id="toggle-badge" title="Switch view">
-      <span class="toggle-icon" id="toggle-icon">
-      </span>
+      <span class="toggle-icon" id="toggle-icon"></span>
       <span class="toggle-label" id="toggle-label"></span>
     </button>
   </div>
   <script>
-    // ----- Dashboard Data -----
-const dashboard_links = {
+    // --- Dashboard Data ---
+   const dashboard_links = {
       "OP_Preauthorization_DashBoard": "https://app.powerbi.com/links/CsnxY4GpAr?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&pbi_source=linkShare&bookmarkGuid=b501072d-cdfa-4954-baa2-10ca28319418",
       "Naphies_DashBoard": "https://app.powerbi.com/groups/me/reports/59456923-c604-4295-8a48-5a9cd1802c52/ca5becd64925b2c4e55c?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&experience=power-bi",
       "E-Claim_Validation_DashBoard": "https://app.powerbi.com/links/YuO7bN2Q7U?ctid=1e5702d3-1562-4ace-bce5-022687da9dc5&pbi_source=linkShare&bookmarkGuid=61875978-6dca-439e-bcaf-ec586da8d843",
@@ -636,20 +668,18 @@ const dashboard_links = {
         "Monthly_Report_DashBoard"
       ]
     };
-    // Count Dashboards
+
+    // Count dashboards for badge
     function getTotalDashboards() {
       return Object.values(categories).reduce((total, arr) => total + arr.length, 0);
     }
     document.getElementById('dashboardCount').textContent = getTotalDashboards();
 
-    // Responsive View toggler logic
+    // Responsive view toggler logic
     function isMobileDevice() {
       return /Mobi|Android|iPhone|iPad|Mobile|Tablet/i.test(navigator.userAgent);
     }
     let currentView = isMobileDevice() ? "mobile" : "desktop";
-    const badgesBodyClass = () => {
-      document.body.classList.toggle('desktop-view', currentView === "desktop");
-    };
     function updateToggleBadge() {
       const icon = document.getElementById('toggle-icon');
       const label = document.getElementById('toggle-label');
@@ -662,6 +692,7 @@ const dashboard_links = {
           <rect x="11.2" y="24.7" width="10.1" height="1.7" rx="1.2" fill="#ddefff"/>
         </svg>`;
         label.textContent = "Desktop";
+        document.body.classList.add('desktop-view');
       } else {
         icon.innerHTML = `<svg viewBox="0 0 24 24">
           <rect x="3.5" y="3" rx="3" width="17" height="18" fill="#1976d2"/>
@@ -669,8 +700,8 @@ const dashboard_links = {
           <circle cx="12" cy="19.3" r="1.1" fill="#b3d8ff"/>
         </svg>`;
         label.textContent = "Mobile";
+        document.body.classList.remove('desktop-view');
       }
-      badgesBodyClass();
     }
     document.getElementById('toggle-badge').addEventListener('click', function() {
       currentView = (currentView === "desktop") ? "mobile" : "desktop";
@@ -680,7 +711,7 @@ const dashboard_links = {
       updateToggleBadge();
     };
 
-    // ----------- Dashboards grid functions -----------
+    // ----- Dashboard grid functions -----
     function renderCategories() {
       const sortedCats = Object.entries(categories).sort((a, b) => b[1].length - a[1].length);
       main_content.innerHTML = `
@@ -754,7 +785,7 @@ const dashboard_links = {
       alert('Link copied to clipboard!');
     }
 
-    // Initial page render
+    // Initial render
     const main_content = document.getElementById('main-content');
     renderCategories();
   </script>
